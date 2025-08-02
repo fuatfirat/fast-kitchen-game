@@ -1,14 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
-  <title>Fast Kitchen</title>
-  <link rel="stylesheet" href="style.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Baloo+2:wght@700&display=swap" rel="stylesheet" />
-</head>
 <body>
-  <div id="game-container">
+  <div id="game-container" style="display:none;">
     <div id="status-bar">
       <div id="lives"><span>❤️❤️❤️</span></div>
       <div id="score">Score: 0</div>
@@ -26,7 +17,53 @@
     </div>
   </div>
 
-  <!-- Bu script COOKING_ACTIONS sabitini tanımlar -->
+  <div id="start-menu" style="
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    background: rgba(0,0,0,0.9);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    z-index: 10000;
+  ">
+    <h1>Fast Kitchen</h1>
+    <p>Welcome to Fast Kitchen! Complete cooking steps as fast as possible.</p>
+    <p>Controls: Click on Chop, Fry, or Boil buttons in correct order.</p>
+    <p id="high-score-display">High Score: 0</p>
+    <button id="start-game-btn" style="
+      margin-top: 20px;
+      font-size: 1.3rem;
+      padding: 10px 30px;
+      cursor: pointer;
+    ">Play</button>
+  </div>
+
+  <div id="game-over-screen" style="
+    display:none;
+    position: fixed;
+    top:0; left:0; width:100vw; height:100vh;
+    background: rgba(0,0,0,0.85);
+    color: white;
+    font-size: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+  ">
+    <div>Game Over!</div>
+    <div id="final-score" style="margin: 20px 0; font-size: 1.5rem;"></div>
+    <button id="restart-btn" style="
+      font-size: 1.2rem;
+      padding: 10px 20px;
+      cursor: pointer;
+    ">Restart</button>
+  </div>
+
+  <!-- Scriptler -->
   <script>
     window.COOKING_ACTIONS = {
       chop: { icon: '🔪', label: 'Chop' },
@@ -34,34 +71,6 @@
       boil: { icon: '🍲', label: 'Boil' }
     };
   </script>
-
-  <!-- AudioManager modülünü içeren JS dosyası -->
   <script type="module" src="audioManager.js"></script>
-
-  <!-- Oyun scripti -->
   <script type="module" src="game.js"></script>
-
-<div id="game-over-screen" style="
-  display:none;
-  position: fixed;
-  top:0; left:0; width:100vw; height:100vh;
-  background: rgba(0,0,0,0.85);
-  color: white;
-  font-size: 2rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  z-index: 9999;
-">
-  <div>Game Over!</div>
-  <div id="final-score" style="margin: 20px 0; font-size: 1.5rem;"></div>
-  <button id="restart-btn" style="
-    font-size: 1.2rem;
-    padding: 10px 20px;
-    cursor: pointer;
-  ">Restart</button>
-</div>
-
 </body>
-</html>
