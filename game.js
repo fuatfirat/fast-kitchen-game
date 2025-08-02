@@ -18,6 +18,7 @@ class FastKitchenGame {
   constructor() {
     console.log("Fast Kitchen game initialized!");
 
+    // DOM elemanları
     this.orderQueueEl = document.getElementById('order-queue');
     this.playerInputEl = document.getElementById('player-input');
     this.scoreEl = document.getElementById('score');
@@ -29,8 +30,14 @@ class FastKitchenGame {
     this.finalScoreEl = document.getElementById('final-score');
     this.restartBtn = document.getElementById('restart-btn');
 
+    this.startMenuEl = document.getElementById('start-menu');
+    this.startGameBtn = document.getElementById('start-game-btn');
+    this.highScoreDisplay = document.getElementById('high-score-display');
+    this.gameContainer = document.getElementById('game-container');
+
     this.audioManager = new AudioManager(SOUND_ASSETS);
 
+    // Oyun durumu
     this.currentOrder = [];
     this.playerInput = [];
     this.score = 0;
@@ -39,10 +46,18 @@ class FastKitchenGame {
     this.orderTimeLimit = 5000;
     this.timerId = null;
 
+    // Yüksek skor kaydı (LocalStorage)
+    this.highScore = parseInt(localStorage.getItem('fastKitchenHighScore')) || 0;
+    this.updateHighScoreDisplay();
+
+    // Olay dinleyiciler
     this.restartBtn.addEventListener('click', () => this.restartGame());
+    this.startGameBtn.addEventListener('click', () => this.startGame());
 
     this.setupEventListeners();
-    this.generateNewOrder();
+
+    // Başlangıçta oyun görünmez, menü gösterilir
+    this.showStartMenu();
   }
 
   setupEventListeners() {
@@ -182,6 +197,16 @@ class FastKitchenGame {
   showGameOver() {
     this.finalScoreEl.textContent = `Final Score: ${this.score}`;
     this.gameOverScreenEl.style.display = 'flex';
+
+    // Yüksek skoru güncelle
+    if (this.score > this.highScore) {
+      this.highScore = this.score;
+      localStorage.setItem('fastKitchenHighScore', this.highScore);
+      this.updateHighScoreDisplay();
+    }
+
+    // Oyun kapandı, oyun container'ı gizle
+    this.gameContainer.style.display = 'none';
   }
 
   restartGame() {
@@ -190,11 +215,41 @@ class FastKitchenGame {
     this.level = 1;
     this.orderTimeLimit = 5000;
     this.gameOverScreenEl.style.display = 'none';
+
     this.updateLives();
     this.updateScore();
     this.updateLevel();
+
+    this.gameContainer.style.display = 'block';
+
     this.generateNewOrder();
+  }
+
+  showStartMenu() {
+    this.startMenuEl.style.display = 'flex';
+    this.gameContainer.style.display = 'none';
+    this.gameOverScreenEl.style.display = 'none';
+  }
+
+  startGame() {
+    this.startMenuEl.style.display = 'none';
+    this.gameContainer.style.display = 'block';
+
+    this.lives = 3;
+    this.score = 0;
+    this.level = 1;
+    this.orderTimeLimit = 5000;
+
+    this.updateLives();
+    this.updateScore();
+    this.updateLevel();
+
+    this.generateNewOrder();
+  }
+
+  updateHighScoreDisplay() {
+    this.highScoreDisplay.textContent = `High Score: ${this.highScore}`;
   }
 }
 
-window.addEventListener('DOMContentLoaded', () => new FastKitchenGame());
+window.addEventListener('DOMContentLoaded', () => new FastKitchenGame
