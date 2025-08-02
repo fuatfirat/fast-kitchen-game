@@ -25,6 +25,10 @@ class FastKitchenGame {
     this.levelEl = document.getElementById('level');
     this.timerBarEl = document.getElementById('timer-bar');
 
+    this.gameOverScreenEl = document.getElementById('game-over-screen');
+    this.finalScoreEl = document.getElementById('final-score');
+    this.restartBtn = document.getElementById('restart-btn');
+
     this.audioManager = new AudioManager(SOUND_ASSETS);
 
     this.currentOrder = [];
@@ -34,6 +38,8 @@ class FastKitchenGame {
     this.level = 1;
     this.orderTimeLimit = 5000;
     this.timerId = null;
+
+    this.restartBtn.addEventListener('click', () => this.restartGame());
 
     this.setupEventListeners();
     this.generateNewOrder();
@@ -71,8 +77,8 @@ class FastKitchenGame {
   generateNewOrder() {
     this.stopTimer();
 
-    const maxLength = Math.min(2 + this.level, 6); // max 6 adım
-    const orderLength = Math.floor(Math.random() * 2) + (maxLength - 1); // 2–3 → 3–4 → 4–5 gibi
+    const maxLength = Math.min(2 + this.level, 6);
+    const orderLength = Math.floor(Math.random() * 2) + (maxLength - 1);
 
     this.currentOrder = [];
     this.playerInput = [];
@@ -131,8 +137,8 @@ class FastKitchenGame {
     if (this.lives > 0) {
       this.generateNewOrder();
     } else {
-      this.playerInputEl.innerHTML = '<span class="placeholder">Game Over!</span>';
       this.stopTimer();
+      this.showGameOver();
     }
   }
 
@@ -153,8 +159,8 @@ class FastKitchenGame {
       setTimeout(() => document.body.style.animation = '', 500);
 
       if (this.lives === 0) {
-        this.playerInputEl.innerHTML = '<span class="placeholder">Game Over!</span>';
         this.stopTimer();
+        this.showGameOver();
       } else {
         setTimeout(() => this.displayPlayerInput(), 100);
       }
@@ -171,6 +177,23 @@ class FastKitchenGame {
       this.stopTimer();
       setTimeout(() => this.generateNewOrder(), 500);
     }
+  }
+
+  showGameOver() {
+    this.finalScoreEl.textContent = `Final Score: ${this.score}`;
+    this.gameOverScreenEl.style.display = 'flex';
+  }
+
+  restartGame() {
+    this.lives = 3;
+    this.score = 0;
+    this.level = 1;
+    this.orderTimeLimit = 5000;
+    this.gameOverScreenEl.style.display = 'none';
+    this.updateLives();
+    this.updateScore();
+    this.updateLevel();
+    this.generateNewOrder();
   }
 }
 
