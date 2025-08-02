@@ -26,6 +26,19 @@
     </div>
   </div>
 
+  <!-- Bu script COOKING_ACTIONS sabitini tanımlar -->
+  <script>
+    window.COOKING_ACTIONS = {
+      chop: { icon: '🔪', label: 'Chop' },
+      fry: { icon: '🍳', label: 'Fry' },
+      boil: { icon: '🍲', label: 'Boil' }
+    };
+  </script>
+
+  <!-- AudioManager modülünü içeren JS dosyası -->
+  <script type="module" src="audioManager.js"></script>
+
+  <!-- Oyun scripti -->
   <script type="module" src="game.js"></script>
 </body>
 </html>
