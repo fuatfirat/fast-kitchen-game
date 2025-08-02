@@ -40,5 +40,28 @@
 
   <!-- Oyun scripti -->
   <script type="module" src="game.js"></script>
+
+<div id="game-over-screen" style="
+  display:none;
+  position: fixed;
+  top:0; left:0; width:100vw; height:100vh;
+  background: rgba(0,0,0,0.85);
+  color: white;
+  font-size: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+">
+  <div>Game Over!</div>
+  <div id="final-score" style="margin: 20px 0; font-size: 1.5rem;"></div>
+  <button id="restart-btn" style="
+    font-size: 1.2rem;
+    padding: 10px 20px;
+    cursor: pointer;
+  ">Restart</button>
+</div>
+
 </body>
 </html>
