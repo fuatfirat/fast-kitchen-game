@@ -18,6 +18,10 @@ class FastKitchenGame {
   constructor() {
     console.log("Fast Kitchen game initialized!");
 
+console.log('Start Menu display:', this.startMenuEl.style.display);
+console.log('Game Container display:', this.gameContainer.style.display);
+console.log('Game Over Screen display:', this.gameOverScreenEl.style.display);
+
     // DOM elemanları
     this.orderQueueEl = document.getElementById('order-queue');
     this.playerInputEl = document.getElementById('player-input');
