@@ -256,4 +256,7 @@ console.log('Game Over Screen display:', this.gameOverScreenEl.style.display);
   }
 }
 
-window.addEventListener('DOMContentLoaded', () => new FastKitchenGame
+window.addEventListener('DOMContentLoaded', () => {
+  new FastKitchenGame();
+});
+
